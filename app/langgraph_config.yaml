@@ -1,0 +1,11 @@
+name: agentic-banking-insurance-poc
+agents:
+- name: file_ingestor
+  type: tool
+  description: "Ingest files, extract and chunk text, index into FAISS"
+- name: rag_qna
+  type: agent
+  description: "Retrieve passages from FAISS and call Ollama for answer generation"
+- name: conversation_manager
+  type: agent
+  description: "Streams chat to the user and orchestrates which agents to call"
