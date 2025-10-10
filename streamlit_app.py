@@ -2,13 +2,14 @@ import streamlit as st
 from pathlib import Path
 from app.ingestion import handle_upload_and_index, list_indexed_documents
 from app.rag_agent import RagAgent
+from app.config import STREAMLIT_TITLE
 
 # --- Setup directories ---
 TMP_DIR = Path("./tmp_uploads")
 TMP_DIR.mkdir(exist_ok=True)
 
 # --- Page Config ---
-st.set_page_config(page_title="Banking & Insurance Chat Assistant", layout="wide")
+st.set_page_config(page_title=STREAMLIT_TITLE, layout="wide")
 
 # --- Initialize Session State ---
 if "messages" not in st.session_state:
@@ -25,6 +26,7 @@ if "use_docs" not in st.session_state:
 # --- SIDEBAR: Document Control Panel ---
 with st.sidebar:
     st.header("⚙️ Assistant Settings")
+
 
     # --- Retrieval Mode at top ---
     use_docs = st.toggle(
@@ -44,7 +46,7 @@ with st.sidebar:
     with st.expander("📤 Upload Documents", expanded=False):
         uploaded_files = st.file_uploader(
             "Upload new file(s):",
-            type=["pdf", "docx", "xlsx"],
+            type=["pdf", "docx", "xlsx", "txt"],
             accept_multiple_files=True,
             label_visibility="collapsed",
             disabled=st.session_state.get("busy", False),
@@ -94,11 +96,21 @@ with st.sidebar:
         st.warning("No documents indexed yet. Upload some files to begin.")
 
     st.divider()
+    # --- Clear all indexed documents ---
+    st.subheader("🗑️ Manage Index")
+    if st.button("Clear All Documents & Index", type="primary", use_container_width=True):
+        from app.vectorstore import clear_all_indexes
+        clear_all_indexes()
+        st.session_state.indexed_files.clear()
+        st.session_state.selected_docs.clear()
+        st.success("✅ All indexed documents and embeddings have been cleared.")
+        st.rerun()
+
     st.markdown(f"**Total Indexed:** {len(indexed_docs)}")
     st.caption("💡 Keep retrieval OFF for general chat; turn it ON for document Q&A.")
 
 # --- MAIN CHAT AREA ---
-st.title("🏦 Banking & Insurance Chat Assistant")
+st.title(STREAMLIT_TITLE)
 st.caption(
     "Chat freely with your AI assistant. "
     "When you want answers grounded in your uploaded documents, "
@@ -139,14 +151,21 @@ if user_input:
                 context_docs=context_docs,
                 force_rag=st.session_state.use_docs,
             )
-        st.markdown(answer)
+
+        # Save first — before displaying, so Streamlit knows state
+        st.session_state.messages.append({"role": "assistant", "content": answer})
+
+        # Now display once
         st.caption(mode_label)
 
     # --- Clear busy state ---
     st.session_state.busy = False
 
-    # Save assistant response
-    st.session_state.messages.append({"role": "assistant", "content": answer})
+    # Display chat history
+    #for msg in st.session_state.messages:
+    #    with st.chat_message(msg["role"]):
+    #        st.markdown(msg["content"])
+
 
 # --- Footer ---
 st.markdown("---")

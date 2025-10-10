@@ -1,4 +1,1 @@
-tmp_uploads\AI Powered Smart Doc Assistant- Product Overview.pdf
-tmp_uploads\FO INC SOP.docx
-tmp_uploads\HA_BRD_test.docx
-tmp_uploads\HA_Scoring.docx
+tmp_uploads\Multi-Agent-Smart-Assistant.png
