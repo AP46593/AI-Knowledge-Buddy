@@ -2,7 +2,7 @@ from typing import List, Optional
 from pathlib import Path
 from app.vectorstore import query_vectors
 from app.ollama_client import generate_stream, generate
-from app.config import TOP_K_RESULTS, MAX_TOKEN, TEMPERATURE, MEM_LIMIT
+from app.config import TOP_K_RESULTS, MAX_TOKEN, TEMPERATURE, MEM_LIMIT,OLLAMA_CHAT_MODEL
 
 
 class RagAgent:
@@ -14,7 +14,7 @@ class RagAgent:
     """
 
     def __init__(self, model_name: Optional[str] = None, memory_limit: int = MEM_LIMIT) -> None:
-        self.model_name = model_name or "llama3:8b"
+        self.model_name = model_name or OLLAMA_CHAT_MODEL
         self.chat_history: List[dict] = []  # stores {"role": "user"/"assistant", "content": "..."}
         self.memory_limit = memory_limit  # number of turns to keep in context
 
