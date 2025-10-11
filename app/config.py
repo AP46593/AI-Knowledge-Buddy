@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=Path(".env"), override=True)
 
 # === Ollama Models ===
-OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL", "llama3:8B")
+OLLAMA_CHAT_MODEL = os.getenv("OLLAMA_CHAT_MODEL", "llama3.2:latest")
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text:latest")
-OLLAMA_VISION_MODEL = os.getenv("OLLAMA_VISION_MODEL", "llava:13b")
+OLLAMA_VISION_MODEL = os.getenv("OLLAMA_VISION_MODEL", "llama3.2-vision:11b")
 
 # === Chunking ===
 CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", 1000))
@@ -29,4 +29,4 @@ INDEX_DIR = Path(os.getenv("INDEX_DIR", "data/index"))
 INDEX_DIR.mkdir(parents=True, exist_ok=True)
 
 # === UI ===
-STREAMLIT_TITLE = os.getenv("STREAMLIT_TITLE", "Knowledge Chatbot Demo")
+STREAMLIT_TITLE = os.getenv("STREAMLIT_TITLE", "Knowledge & Incident Copilot")

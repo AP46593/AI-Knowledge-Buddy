@@ -1,0 +1,15 @@
+{
+  "short_description": "The quote server is not responding",
+  "description": "the users are not able to generate quotes from the server",
+  "category": "General",
+  "impact": "3 - Low",
+  "urgency": "3 - Low",
+  "caller": "User",
+  "username": "AP66754",
+  "user_email": "ap77687@gmail.com",
+  "team": "Omega NGP",
+  "application": "Quote Engine",
+  "assigned_to": null,
+  "opened_at": "2025-10-11T06:39:14.034980Z",
+  "state": "New"
+}

@@ -1,0 +1,15 @@
+{
+  "short_description": "Quote engine not responding",
+  "description": "Users are not able to connect to the quote engine. The application is showing offline.",
+  "category": "General",
+  "impact": "3 - Low",
+  "urgency": "3 - Low",
+  "caller": "User",
+  "username": "AP45675",
+  "user_email": "ap45675@om.com",
+  "team": "Front Office - Quotes processing",
+  "application": "Quote engine",
+  "assigned_to": null,
+  "opened_at": "2025-10-10T17:46:25.349643Z",
+  "state": "New"
+}

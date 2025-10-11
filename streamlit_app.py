@@ -143,20 +143,21 @@ if user_input:
     # --- Mark busy state ---
     st.session_state.busy = True
 
-    # Generate answer
+    # Generate answer and show instantly
+    with st.spinner("Thinking..."):
+        answer = st.session_state.agent.answer(
+            question=user_input,
+            context_docs=context_docs,
+            force_rag=st.session_state.use_docs,
+        )
+
+    # Display assistant reply once (not nested)
     with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
-            answer = st.session_state.agent.answer(
-                question=user_input,
-                context_docs=context_docs,
-                force_rag=st.session_state.use_docs,
-            )
-
-        # Save first — before displaying, so Streamlit knows state
-        st.session_state.messages.append({"role": "assistant", "content": answer})
-
-        # Now display once
+        st.markdown(answer)
         st.caption(mode_label)
+
+    # Save assistant reply to session state for history
+    st.session_state.messages.append({"role": "assistant", "content": answer})
 
     # --- Clear busy state ---
     st.session_state.busy = False

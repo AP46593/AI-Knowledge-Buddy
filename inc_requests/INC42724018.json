@@ -1,0 +1,11 @@
+{
+  "short_description": "Application is not connecting to the quote engine",
+  "description": "N/A",
+  "category": "General",
+  "impact": "3 - Low",
+  "urgency": "3 - Low",
+  "caller": "User",
+  "assigned_to": null,
+  "opened_at": "2025-10-10T17:35:15.551704Z",
+  "state": "New"
+}
